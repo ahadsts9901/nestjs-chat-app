@@ -43,7 +43,7 @@ export class ChatService {
     async create(createPostDto: CreateChatDto, req: RequestWithUser) {
 
         const from_id = req?.currentUser?._id
-        const to_id = createPostDto?.userId
+        const to_id = createPostDto?.to_id
         const message = createPostDto?.message
 
         if (!message || message.trim() === "") {

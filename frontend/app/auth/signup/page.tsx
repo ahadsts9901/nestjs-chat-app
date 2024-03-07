@@ -5,6 +5,7 @@ import React, { useRef, useState } from 'react'
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
+import { baseUrl } from '@/app/core';
 
 const Signup = () => {
 
@@ -75,7 +76,7 @@ const Signup = () => {
 
     try {
       setIsLoading(true)
-      const resp = await axios.post("/api/auth/signup", data, { withCredentials: true })
+      const resp = await axios.post(`${baseUrl}/api/auth/signup`, data, { withCredentials: true })
       e.target.reset()
       setSuccess(resp.data.message)
       setTimeout(() => {

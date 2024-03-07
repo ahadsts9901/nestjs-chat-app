@@ -5,6 +5,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from "next/navigation"
+import { baseUrl } from '@/app/core';
 
 const Login = () => {
 
@@ -46,7 +47,7 @@ const Login = () => {
         try {
 
             setIsLoading(true)
-            const resp = await axios.post("/api/auth/login", data, { withCredentials: true })
+            const resp = await axios.post(`${baseUrl}/api/auth/login`, data, { withCredentials: true })
             e.target.reset()
             setSuccess(resp.data.message)
             setTimeout(() => {

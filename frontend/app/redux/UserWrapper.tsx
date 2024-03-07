@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { login } from "./user"
+import { baseUrl } from '../core'
 
 const UserWrapper = ({ children }: any) => {
 
@@ -11,7 +12,7 @@ const UserWrapper = ({ children }: any) => {
 
         const fetchUser = async () => {
             try {
-                const response = await axios.get('/api/ping');
+                const response = await axios.get(`${baseUrl}/api/profile`, { withCredentials: true });
                 dispatch(login(response.data.data))
             } catch (error) {
                 console.error(error);

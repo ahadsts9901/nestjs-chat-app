@@ -5,6 +5,7 @@ import * as bcrypt from "bcrypt"
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { LoginUserDto } from 'src/dto/auth/login-user.dto';
+import { isValidObjectId } from 'mongoose';
 
 @Injectable()
 export class AuthService {
@@ -121,6 +122,39 @@ export class AuthService {
         return res.send({
             message: "logout successfull"
         })
+
+    }
+
+    async getUsers() {
+        const resp = await userModel.find().sort({ _id: -1 }).exec()
+        return {
+            message: "user fetched",
+            data: resp
+        }
+    }
+
+    async getUser(userId: string) {
+
+        if (!userId || userId.trim() === "") {
+            throw new BadRequestException('userId not provided')
+        }
+
+        if (!isValidObjectId(userId)) {
+            throw new BadRequestException('invalid userId')
+        }
+
+        const res = await userModel.findById(userId).exec()
+
+        return {
+            message: "account fetched",
+            data: {
+                firstName: res.firstName,
+                lastName: res.lastName,
+                email: res.email,
+                createdOn: res.createdOn,
+                _id: res._id
+            }
+        }
 
     }
 

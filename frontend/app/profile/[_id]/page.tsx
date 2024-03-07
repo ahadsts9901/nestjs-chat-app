@@ -1,5 +1,5 @@
 "use client"
-import { profilePicture } from "@/app/core";
+import { baseUrl, profilePicture } from "@/app/core";
 import axios from "axios"
 import Image from "next/image";
 import { useRouter } from "next/navigation"
@@ -25,7 +25,7 @@ const Profile = ({ params }: any) => {
     }, [params?._id])
 
     const getData = (id: string) => {
-        axios.get(`/api/profile?id=${id}`, { withCredentials: true })
+        axios.get(`${baseUrl}/api/profile?id=${id}`, { withCredentials: true })
             .then((res) => {
                 setProfile(res.data.data)
             }).catch((err) => {
@@ -34,7 +34,7 @@ const Profile = ({ params }: any) => {
     }
 
     const logout = async () => {
-        axios.post(`/api/auth/logout`, { withCredentials: true })
+        axios.post(`${baseUrl}/api/auth/logout`,{}, { withCredentials: true })
             .then((res) => {
                 router.push("/auth/login")
             }).catch((err) => {

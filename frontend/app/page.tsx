@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import axios from "axios"
 import User from "./components/User";
 import { useSelector } from 'react-redux';
+import { baseUrl } from "./core";
 
 export default function Home() {
 
@@ -18,7 +19,7 @@ export default function Home() {
 
   const fetchUsers = async () => {
     try {
-      const resp = await axios.get("/api/users", { withCredentials: true })
+      const resp = await axios.get(`${baseUrl}/api/auth/users`, { withCredentials: true })
       setUsers(resp.data.data)
     } catch (error) {
       console.log(error);

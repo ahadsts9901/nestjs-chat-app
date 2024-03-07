@@ -3,6 +3,7 @@
 import ChatLeft from "@/app/components/ChatLeft";
 import ChatNav from "@/app/components/ChatNav";
 import ChatRight from "@/app/components/ChatRight";
+import { baseUrl } from "@/app/core";
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { IoMdSend } from "react-icons/io";
@@ -29,10 +30,10 @@ const User = (props: any) => {
     }, [messages])
 
     const getUser = (id: string) => {
-        axios.get(`/api/user?id=${id}`, { withCredentials: true })
+        axios.get(`${baseUrl}/api/auth/user/${id}`, { withCredentials: true })
             .then(response => {
-                // console.log(response.data.user);
-                setUser(response.data.user);
+                // console.log(response.data.data);
+                setUser(response.data.data);
             })
             .catch(error => {
                 console.log(error);
@@ -42,8 +43,8 @@ const User = (props: any) => {
     const getMessages = async (id: any) => {
         try {
             setIsLoading(true)
-            const resp = await axios.get(`/api/message?id=${id}`, { withCredentials: true })
-            setMessages(resp.data.messages)
+            const resp = await axios.get(`${baseUrl}/api/chat/${id}`, { withCredentials: true })
+            setMessages(resp.data.data)
             setIsLoading(false)
         } catch (error) {
             console.log(error);
@@ -61,7 +62,7 @@ const User = (props: any) => {
 
         try {
 
-            const resp = await axios.post("/api/message",
+            const resp = await axios.post(`${baseUrl}/api/chat`,
                 {
                     message: inputRef.current.value,
                     to_id: user?._id,
