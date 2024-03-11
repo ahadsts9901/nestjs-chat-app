@@ -69,7 +69,7 @@ const Login = () => {
 
     return (
         <div className='w-full h-[100vh] flex justify-center items-center'>
-            <form onSubmit={submitHandler} className='m-auto flex flex-col gap-4 p-4 py-8 sm:border sm:shadow-md rounded-xl text-slate-800'>
+            <form onSubmit={submitHandler} className='m-auto flex flex-col gap-4 p-4 py-8 sm:border sm:shadow-md rounded-xl text-[#006655]'>
                 <h3 className='font-bold text-2xl w-full text-center'>Login</h3>
                 <input type="email" ref={emailRef} placeholder='Email' className='w-full p-2 px-4 border rounded-lg ' />
                 <div className='w-full p-2 px-4 border rounded-lg flex justify-between items-center'>
@@ -81,7 +81,7 @@ const Login = () => {
                 <Link href="/auth/signup" className='text-[0.8rem] mt-2 pr-2 w-full text-right'>Dont have an account? Signup</Link>
                 <p className='w-full text-center text-sm font-bold text-red-500 capitalize'>{instructions}</p>
                 <p className='w-full text-center text-sm font-bold text-green-600 capitalize'>{success}</p>
-                <button className={`w-full font-bold text-white ${isLoading ? "bg-zinc-500" : "bg-slate-800"} p-2 rounded-lg ${isLoading ? "pointer-events-none" : "pointer-events-auto"}`}>
+                <button className={`w-full font-bold text-white ${isLoading ? "bg-zinc-500" : "bg-[#006655]"} p-2 rounded-lg ${isLoading ? "pointer-events-none" : "pointer-events-auto"}`}>
                     {
                         isLoading && <span className="loader mr-4"></span>
                     }

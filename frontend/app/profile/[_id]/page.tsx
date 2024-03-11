@@ -43,7 +43,7 @@ const Profile = ({ params }: any) => {
     }
 
     return (
-        <div className="w-full h-[100vh] sm:w-[600px] mx-auto border-x flex flex-col gap-4 p-4 text-slate-800">
+        <div className="w-full h-[100vh] sm:w-[600px] mx-auto border-x flex flex-col gap-4 p-4 text-[#006655]">
             <IoChevronBackOutline className="w-[1.5rem] h-[1.5rem] cursor-pointer" onClick={() => router.back()} />
             <h2 className="w-full text-left font-bold text-xl pl-4">Profile</h2>
             <Image src={profilePicture} alt="picture" width={100} height={100}
@@ -71,11 +71,11 @@ const Profile = ({ params }: any) => {
                         <h3 className="w-full text-left pl-4 text-lg">
                             {`${profile?.email ? profile?.email : ""}`}
                         </h3>
-                        <button className="ml-4 mt-4 w-[200px] font-bold text-white bg-slate-800 p-2 rounded-lg"
+                        <button className="ml-4 mt-4 w-[200px] font-bold text-white bg-[#006655] p-2 rounded-lg"
                             onClick={logout}
                         >Log out</button>
                     </> :
-                    (currentUser && <Link href={`/chat/${profile?._id}`} className="cursor-pointer ml-4 mt-4 w-[200px] font-bold text-white bg-slate-800 p-2 rounded-lg flex items-center">
+                    (currentUser && <Link href={`/chat/${profile?._id}`} className="cursor-pointer ml-4 mt-4 w-[200px] font-bold text-white bg-[#006655] p-2 rounded-lg flex items-center">
                         <IoIosChatboxes className="w-[1.2rem] h-[1.2rem] ml-[55px] mr-2" />Chat
                     </Link>)
             }

@@ -106,9 +106,9 @@ const User = (props: any) => {
     }, [currentUser, user?._id])
 
     return (
-        <div className="w-full sm:w-[600px] m-auto pb-[4rem]">
+        <div className="w-full sm:w-[600px] m-auto pb-[4rem] text-[#006655]">
             <ChatNav firstName={user?.firstName} lastName={user?.lastName} isMe={currentUser?._id === user?._id} _id={user?._id} />
-            <div className="flex flex-col-reverse gap-4 p-4 bg-[#fefefe] text-slate-800">
+            <div className="flex flex-col-reverse gap-4 p-4 bg-[#fefefe] text-[#006655]">
 
                 {
                     messages.length < 1 ? null :

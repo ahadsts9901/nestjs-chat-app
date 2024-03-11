@@ -12,7 +12,7 @@ const ChatLeft = (props: any) => {
     return (
         <>
             <div className="chat chat-start text-gray-200">
-                <div className="chat-bubble flex flex-col gap-2 rounded-2xl bg-slate-800">
+                <div className="chat-bubble flex flex-col gap-2 rounded-2xl bg-[#006655]">
                     <p className='text-sm w-full text-left break-all'>{props?.message}</p>
                     <p className='text-[0.7rem]'>{formattedTime}</p>
                 </div>
