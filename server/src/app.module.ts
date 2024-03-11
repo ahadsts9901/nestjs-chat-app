@@ -5,12 +5,11 @@ import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { ProfileModule } from './profile/profile.module';
-import { WebsocketService } from './websocket/websocket.service';
 
 @Module({
   imports: [ChatModule, AuthModule, ProfileModule],
   controllers: [AppController],
-  providers: [AppService, WebsocketService],
+  providers: [AppService],
 })
 
 export class AppModule implements NestModule {

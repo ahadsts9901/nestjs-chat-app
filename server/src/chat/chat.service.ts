@@ -3,6 +3,8 @@ import { isValidObjectId } from 'mongoose';
 import { CreateChatDto } from 'src/dto/chat/create-chat.dto';
 import { RequestWithUser } from 'src/middlewares/auth.middleware';
 import { chatModel } from 'src/schema';
+import { pusherServer } from 'src/pusher';
+import { toPusherKey } from 'src/pusher';
 
 @Injectable()
 export class ChatService {
@@ -63,6 +65,19 @@ export class ChatService {
             to_id: to_id,
             message: message
         })
+
+        try {
+            pusherServer.trigger(
+                toPusherKey(`user:${to_id}:message`), `message`,
+                {
+                    senderId: from_id
+                }
+            )
+
+        } catch (error) {
+            console.log(error);
+
+        }
 
         return {
             message: "message sent"

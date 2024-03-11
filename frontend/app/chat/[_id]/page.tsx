@@ -8,13 +8,14 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { pusherClient } from "@/app/pusher";
+import { toPusherKey } from "@/app/pusher";
 
 const User = (props: any) => {
 
     const currentUser = useSelector((state: any) => state.user)
 
     const [user, setUser]: any = useState(null)
-    const [isLoading, setIsLoading]: any = useState(false)
     const [messages, setMessages]: any = useState([])
     const [toggleMessage, setToggleMessage] = useState(false)
 
@@ -42,13 +43,10 @@ const User = (props: any) => {
 
     const getMessages = async (id: any) => {
         try {
-            setIsLoading(true)
             const resp = await axios.get(`${baseUrl}/api/chat/${id}`, { withCredentials: true })
             setMessages(resp.data.data)
-            setIsLoading(false)
         } catch (error) {
             console.log(error);
-            setIsLoading(false)
         }
     }
 
@@ -85,7 +83,25 @@ const User = (props: any) => {
 
     useEffect(() => {
 
-        // socket logic
+        console.log("connected")
+
+        pusherClient.subscribe(
+            toPusherKey(`user:${currentUser?._id}:message`)
+        )
+
+        const messageHandler = () => {
+            console.log("new message:")
+            getMessages(user?._id)
+        }
+
+        pusherClient.bind(`message`, messageHandler)
+
+        return () => {
+            pusherClient.unsubscribe(
+                toPusherKey(`user:${currentUser?._id}:message`)
+            )
+            pusherClient.unbind(`message`, messageHandler)
+        }
 
     }, [currentUser, user?._id])
 
@@ -93,9 +109,7 @@ const User = (props: any) => {
         <div className="w-full sm:w-[600px] m-auto pb-[4rem]">
             <ChatNav firstName={user?.firstName} lastName={user?.lastName} isMe={currentUser?._id === user?._id} _id={user?._id} />
             <div className="flex flex-col-reverse gap-4 p-4 bg-[#fefefe] text-slate-800">
-                {
-                    isLoading && <div className="w-full h-full flex justify-center items-center mt-[12rem]"><span className="load"></span></div>
-                }
+
                 {
                     messages.length < 1 ? null :
                         messages.map((message: any, index: number) => {
